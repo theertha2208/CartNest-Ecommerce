@@ -1,0 +1,80 @@
+
+/* CartNest Bottle Green Theme */
+
+:root {
+  --cartnest-bg: #102e26;
+  --cartnest-card: #1d4739;
+  --cartnest-text: #f8f5e9;
+  --cartnest-muted: #b8d8c4;
+  --cartnest-accent: #f4a261;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Smooth animations */
+@keyframes cartnestFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Only elements explicitly assigned this class animate */
+.cartnest-fade-up {
+  animation: cartnestFadeUp 0.65s ease both;
+}
+
+/* Product cards */
+.cartnest-product-card {
+  background: var(--cartnest-card);
+  border: 1px solid #376554;
+  border-radius: 18px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.cartnest-product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* Product image area */
+.cartnest-product-image {
+  background: #e5ebdd;
+  overflow: hidden;
+}
+
+.cartnest-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.cartnest-product-card:hover img {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cartnest-fade-up {
+    animation: none;
+  }
+
+  .cartnest-product-card,
+  .cartnest-product-image img {
+    transition: none;
+  }
+}

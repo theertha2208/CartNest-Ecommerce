@@ -1,0 +1,383 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  /* Headings use the same clean sans as a modern online store. */
+  --font-serif: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+/* ==========================================
+   CARTNEST — YELLOW, WHITE & GREEN THEME
+   Customers: white pages, yellow actions (like the shop).
+   Staff dashboards: white pages, a deep green sidebar, yellow actions
+   and green accents.
+   ========================================== */
+
+:root {
+  --cn-bg: #f6f6f7;
+  --cn-bg-deep: #eef0ee;
+  --cn-surface: #ffffff;
+  --cn-border: #e5e7eb;
+  --cn-text: #111827;
+  --cn-muted: #6b7280;
+  --cn-gold: #eab308;
+  --cn-yellow: #facc15;
+  --cn-green: #15803d;
+  --cn-green-deep: #0f3d24;
+
+  color-scheme: light;
+  font-family: var(--font-sans);
+  color: var(--cn-text);
+  background-color: var(--cn-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--cn-bg);
+}
+
+/* A faint warm glow in the corners behind every page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(35% 30% at 12% 10%, rgba(250, 204, 21, 0.12), transparent 70%),
+    radial-gradient(30% 28% at 90% 90%, rgba(22, 163, 74, 0.07), transparent 70%);
+  animation: cn-aurora 32s ease-in-out infinite alternate;
+}
+
+@layer base {
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cn-gold);
+    outline-offset: 2px;
+  }
+
+  *,
+  ::before,
+  ::after {
+    border-color: var(--cn-border);
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    border-radius: 0.625rem;
+    color: var(--cn-text);
+    background-color: #ffffff;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  select option {
+    background: #ffffff;
+    color: var(--cn-text);
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--cn-gold);
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.015em;
+  }
+
+  .font-serif {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+::selection {
+  background: #fde047;
+  color: #111827;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cfd4d0;
+  border-radius: 999px;
+  border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8b0aa;
+}
+
+@layer components {
+  /* Every page eases in on load */
+  #root > * {
+    animation: cn-page-in 0.6s ease-out;
+  }
+
+  /* White cards: panels, tables and lists. */
+  .cn-glass {
+    background-color: #ffffff;
+    box-shadow:
+      0 1px 2px rgba(16, 24, 40, 0.04),
+      0 8px 24px -16px rgba(16, 24, 40, 0.12);
+  }
+
+  /* Frosted white: dialogs, drawers, table headers and inputs. */
+  .cn-glass-deep {
+    background-color: rgba(255, 255, 255, 0.97);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Staff dashboards: deep green sidebar with a soft yellow glow. */
+  .cn-sidebar {
+    background-color: var(--cn-green-deep);
+    background-image:
+      radial-gradient(120% 40% at 0% 0%, rgba(250, 204, 21, 0.16), transparent 60%),
+      linear-gradient(180deg, #0f3d24 0%, #0c3320 60%, #0a2b1b 100%);
+    color: #ecfdf3;
+  }
+
+  /* Green header band used on staff pages. */
+  .cn-band {
+    background-image:
+      radial-gradient(60% 120% at 100% 0%, rgba(250, 204, 21, 0.28), transparent 60%),
+      linear-gradient(110deg, #0f3d24 0%, #166534 60%, #15803d 100%);
+    color: #ffffff;
+  }
+
+  /* Primary buttons: yellow, with a light sweep on hover. */
+  .cn-gradient-gold {
+    background-image: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+    color: #111827;
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cn-gradient-gold:hover:not(:disabled) {
+    filter: brightness(0.97);
+  }
+
+  :is(button, a).cn-gradient-gold {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 16px -8px rgba(202, 138, 4, 0.55);
+  }
+
+  :is(button, a).cn-gradient-gold::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+  }
+
+  :is(button, a).cn-gradient-gold:hover:not(:disabled)::after {
+    transform: translateX(120%);
+  }
+}
+
+/* ==========================================
+   STOREFRONT — YELLOW & WHITE LIGHT THEME
+   Used by the shop, sign-in and register pages. The base styles read these
+   variables, so inputs, borders and text turn light inside `.cn-light`.
+   ========================================== */
+
+.cn-light {
+  --cn-text: #111827;
+  --cn-muted: #6b7280;
+  --cn-border: #e5e7eb;
+  --cn-surface: #ffffff;
+  --cn-gold: #eab308;
+
+  color-scheme: light;
+  color: var(--cn-text);
+  background-color: #f6f6f7;
+}
+
+.cn-light input::placeholder,
+.cn-light textarea::placeholder {
+  color: #9ca3af;
+}
+
+.cn-light select option {
+  background: #ffffff;
+  color: #111827;
+}
+
+.cn-light ::selection {
+  background: #fde047;
+  color: #111827;
+}
+
+/* Hide the scrollbar on horizontally scrolling rows (category strip). */
+.cn-no-scrollbar {
+  scrollbar-width: none;
+}
+
+.cn-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Admin order alerts */
+.cn-toast {
+  animation: cn-toast-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cn-toast-timer {
+  transform-origin: left;
+  animation: cn-toast-timer 9s linear forwards;
+}
+
+.cn-ring {
+  transform-origin: 50% 10%;
+  animation: cn-ring 2.4s ease-in-out infinite;
+}
+
+@keyframes cn-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cn-toast-timer {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes cn-ring {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+
+  65% {
+    transform: rotate(14deg);
+  }
+
+  72% {
+    transform: rotate(-12deg);
+  }
+
+  79% {
+    transform: rotate(8deg);
+  }
+
+  86% {
+    transform: rotate(-4deg);
+  }
+}
+
+/* Sections fade up as they scroll into view (where supported) */
+@supports (animation-timeline: view()) {
+  main > section {
+    animation: cn-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+}
+
+/* Opacity only: a transform here would trap the fixed cart drawer and dialogs inside the page */
+@keyframes cn-page-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cn-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cn-aurora {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: translate3d(4%, -3%, 0) rotate(6deg) scale(1.08);
+  }
+
+  100% {
+    transform: translate3d(-3%, 4%, 0) rotate(-4deg) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
